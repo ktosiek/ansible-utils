@@ -1,0 +1,24 @@
+- hosts: all
+  vars:
+    a: "10"
+  tasks:
+    - shell: echo "dupa"
+      register: shell
+    - name: Zadanko
+      file: path=/ state=directory
+      when: True
+      tags: debug
+    - name: Powtarzane zadanko
+      shell: echo "{{ item }}"
+      with_items: [1, 2, 3]
+    - name: Długie zadanko
+      shell: sleep 10; echo "WOW, such async"
+      async: 60
+      poll: 4
+    - name: kiepskie zadanko
+      shell: "false"
+      ignore_errors: yes
+
+- hosts: localhost:all
+  tasks:
+    - shell: echo "Zadanie z drugiej części"
