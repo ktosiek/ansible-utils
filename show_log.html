@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+
+
+    <h1>Playbook</h1>
+    <ul data-bind="foreach: playbook().plays">
+      <li>
+        <h2>Play [<span data-bind="text: hosts_pattern"></span>]</h2>
+        <ul data-bind="foreach: tasks">
+          <li data-bind="style: { color: ['failed', 'error'].indexOf(result) == -1 ? 'blue' : 'red' }">
+            <span data-bind="text: task.name"></span>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+
+
+    <script id="recursiveTreeElem" type="text/html">
+      <li>
+	<span data-bind="text: key"></span>:
+
+	<!-- ko ifnot: value instanceof Object -->
+	  <span data-bind="text: value"></span>
+	<!-- /ko -->
+	<!-- ko if: value instanceof Object -->
+	  <ul data-bind="foreachprop: value">
+	    <!-- ko template: { name: 'recursiveTreeElem' } --><!-- /ko -->
+	  </ul>
+	<!-- /ko -->
+      </li>
+    </script>
+
+    <ul data-bind="foreach: events">
+      <li>
+	<div data-bind="text: type"></div>
+	<ul data-bind="foreachprop: additional_data">
+	  <!-- ko template: { name: 'recursiveTreeElem' } --><!-- /ko -->
+	</ul>
+      </li>
+    </ul>
+
+    <script type="application/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-debug.js"></script>
+    <script type="application/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
+
+    <script type="application/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore.js"></script>
+    <script type="application/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/machina.js/0.3.4/machina.js"></script>
+
+    <script type="application/javascript" src="callback_plugins/play_log.json"></script>
+    <script type="application/javascript" src="log_parser.js"></script>
+    <script type="application/javascript" src="show_log.js"></script>
+  </body>
+</html>
