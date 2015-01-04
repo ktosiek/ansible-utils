@@ -10,7 +10,7 @@ filter_loader.add_directory(
         'filter_plugins'))
 
 
-multiget = filter_loader.get('multiget').filters()[0]
+multiget = filter_loader.get('multiget').filters()['multiget']
 
 
 def test_getting_keys():

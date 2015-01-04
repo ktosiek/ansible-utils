@@ -1,6 +1,8 @@
 class FilterModule(object):
     def filters(self):
-        return [multiget]
+        return {
+            'multiget': multiget,
+        }
 
 
 def multiget(*args, **kwargs):
