@@ -20,3 +20,7 @@ def test_getting_keys():
 def test_error_on_missing_key():
     with pytest.raises(KeyError):
         multiget({1: 'a'}, [1, 2])
+
+
+def test_ignoring_missing_keys():
+    assert ['a'] == multiget({1: 'a'}, [1, 2], ignore_missing=True)
